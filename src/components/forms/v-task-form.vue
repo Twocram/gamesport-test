@@ -21,10 +21,10 @@ async function addButtonHandler() {
 </script>
 
 <template>
-    <div class="flex mb-6">
-        <v-input v-model="taskTitle" type="text" placeholder="Add a task" />
+    <div class="flex mb-6 gap-1.5">
+        <v-input v-model="taskTitle" type="text" placeholder="add" />
         <v-button @click="addButtonHandler">
-            Add
+            {{ $t('actions.add') }}
         </v-button>
     </div>
 </template>

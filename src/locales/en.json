@@ -1,0 +1,22 @@
+{
+    "actions": {
+        "save": "Save",
+        "edit": "Edit",
+        "delete": "Delete",
+        "add": "Add"
+    },
+    "menu": {
+        "home": "Home",
+        "about": "About",
+        "settings": "Settings"
+    },
+    "placeholder": {
+        "task": {
+            "input": {
+                "default": "Please enter text",
+                "add": "Add a task",
+                "update": "Update task title"
+            }
+        }
+    }
+}

@@ -41,14 +41,14 @@ async function toggleMode() {
             {{ task.title }}
         </span>
 
-        <v-input v-else v-model="task.title" type="text" placeholder="Update task title" />
+        <v-input v-else v-model="task.title" type="text" placeholder="update" />
 
         <div class="flex gap-1.5">
             <v-button :variant="isEditMode ? 'success' : 'primary'" @click="toggleMode">
-                {{ isEditMode ? 'Save' : 'Edit' }}
+                {{ isEditMode ? $t('actions.save') : $t('actions.edit') }}
             </v-button>
             <v-button variant="danger" @click="removeTask(task.id)">
-                Delete
+                {{ $t('actions.delete') }}
             </v-button>
         </div>
     </li>

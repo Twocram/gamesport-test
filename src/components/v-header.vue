@@ -1,26 +1,29 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { useI18n } from "vue-i18n"
 
 type MenuItem = {
     name: string,
     link: string,
 }
 
-const menuItems: MenuItem[] = [
+const { t } = useI18n();
+
+const menuItems = computed<MenuItem[]>(() => [
     {
-        name: 'Home',
+        name: t('menu.home'),
         link: '/'
     },
     {
-        name: 'About',
+        name: t('menu.about'),
         link: '/about'
     },
     {
-        name: 'Settings',
+        name: t('menu.settings'),
         link: '/settings'
     }
-]
+])
 
 const route = useRoute();
 
