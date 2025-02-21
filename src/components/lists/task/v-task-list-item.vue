@@ -2,29 +2,48 @@
 import type { Task } from '@/types/task';
 import vButton from '@/components/ui/v-button.vue';
 import { useTaskStore } from '@/stores/task';
+import VCheckbox from '@/components/ui/v-checkbox.vue';
+import { ref, watch } from 'vue';
+import VInput from '@/components/ui/v-input.vue';
 
 type Props = {
     task: Task
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 
 const taskStore = useTaskStore();
+const isEditMode = ref(false)
 
 async function removeTask(taskId: number) {
     await taskStore.removeTask(taskId);
+}
+
+const taskIsCompleted = ref<boolean>(props.task.isCompleted);
+
+watch(taskIsCompleted, async (value) => {
+    await taskStore.updateTask({ ...props.task, isCompleted: value });
+})
+
+async function toggleMode() {
+    if (isEditMode.value) {
+        await taskStore.updateTask({ ...props.task, title: props.task.title });
+    }
+    isEditMode.value = !isEditMode.value
 }
 </script>
 
 <template>
     <li class="flex items-center justify-between p-3 border-b border-gray-200">
-        <span :class="{ 'line-through text-gray-500': task.isCompleted }">
+        <v-checkbox v-model="taskIsCompleted" />
+        <span v-if="!isEditMode">
             {{ task.title }}
         </span>
+
+        <v-input v-else v-model="task.title" type="text" placeholder="Update task title" />
         <div class="flex gap-1.5">
-            <v-button @click="taskStore.updateTask({ ...task, isCompleted: !task.isCompleted })"
-                :variant="task.isCompleted ? 'primary' : 'success'">
-                {{ task.isCompleted ? 'Uncomplete' : 'Complete' }}
+            <v-button :variant="isEditMode ? 'success' : 'primary'" @click="toggleMode">
+                {{ isEditMode ? 'Save' : 'Edit' }}
             </v-button>
             <v-button variant="danger" @click="removeTask(task.id)">
                 Delete
