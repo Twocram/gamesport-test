@@ -3,7 +3,9 @@
 
 <template>
     <div class="min-h-screen bg-gray-100 py-8">
-        <slot />
+        <div class="max-w-2xl mx-auto">
+            <slot />
+        </div>
     </div>
 </template>
 
