@@ -9,11 +9,9 @@ const taskTitle = ref('');
 const taskStore = useTaskStore();
 
 async function addButtonHandler() {
-    const lastTask = taskStore.tasks[taskStore.tasks.length - 1];
-
     if (taskTitle.value) {
         await taskStore.addTask({
-            id: lastTask ? lastTask.id + 1 : 1,
+            id: String(Date.now()),
             title: taskTitle.value,
             isCompleted: false
         });

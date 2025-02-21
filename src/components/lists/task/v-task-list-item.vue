@@ -15,7 +15,7 @@ const props = defineProps<Props>()
 const taskStore = useTaskStore();
 const isEditMode = ref(false)
 
-async function removeTask(taskId: number) {
+async function removeTask(taskId: string) {
     await taskStore.removeTask(taskId);
 }
 
@@ -36,11 +36,13 @@ async function toggleMode() {
 <template>
     <li class="flex items-center justify-between p-3 border-b border-gray-200">
         <v-checkbox v-model="taskIsCompleted" />
+
         <span v-if="!isEditMode">
             {{ task.title }}
         </span>
 
         <v-input v-else v-model="task.title" type="text" placeholder="Update task title" />
+
         <div class="flex gap-1.5">
             <v-button :variant="isEditMode ? 'success' : 'primary'" @click="toggleMode">
                 {{ isEditMode ? 'Save' : 'Edit' }}

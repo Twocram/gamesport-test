@@ -26,7 +26,7 @@ export async function addTask(task: Task): Promise<{success: boolean}> {
     }
 }
 
-export async function removeTask(taskId: number): Promise<{success: boolean}> {
+export async function removeTask(taskId: string): Promise<{success: boolean}> {
     try {
         await fetch(`/api/tasks/${taskId}`, {
             method: 'DELETE'

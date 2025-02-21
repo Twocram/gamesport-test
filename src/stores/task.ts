@@ -24,7 +24,7 @@ export const useTaskStore = defineStore('task', () => {
         }
     }
 
-    async function removeTask(taskId: number) {
+    async function removeTask(taskId: string) {
         const { success } =await taskAPI.removeTask(taskId);
 
         if (success) {
