@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
 import { ref } from "vue";
-import {useI18n} from "vue-i18n"
+import { useI18n } from "vue-i18n"
 
 export const useLocaleStore = defineStore('locale', () => {
     const { locale } = useI18n();

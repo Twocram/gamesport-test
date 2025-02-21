@@ -34,10 +34,10 @@ async function toggleMode() {
 </script>
 
 <template>
-    <li class="flex items-center justify-between p-3 border-b border-gray-200">
+    <li class="flex items-center justify-between pb-3 border-b border-gray-200">
         <v-checkbox v-model="taskIsCompleted" />
 
-        <span v-if="!isEditMode">
+        <span v-if="!isEditMode" :class="{ 'line-through text-gray-500': task.isCompleted }">
             {{ task.title }}
         </span>
 

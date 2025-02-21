@@ -18,5 +18,9 @@
                 "update": "Update task title"
             }
         }
+    },
+    "settings": {
+        "title": "Settings",
+        "chooseLanguage": "Choose language"
     }
 }
