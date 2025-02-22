@@ -24,7 +24,7 @@ describe('VTaskList.vue', () => {
         setActivePinia(createPinia())
     })
 
-    it('рендерит список задач', () => {
+    it('render list of tasks', () => {
         const wrapper = mount(VTaskList, {
             props: {
                 tasks: mockTasks,
@@ -47,7 +47,7 @@ describe('VTaskList.vue', () => {
         });
     });
 
-    it('не рендерит задачи, если список пуст', () => {
+    it('doesnt render list of tasks', () => {
         const wrapper = mount(VTaskList, {
             props: {
                 tasks: [],
@@ -66,7 +66,7 @@ describe('VTaskList.vue', () => {
         expect(taskItems.length).toBe(0);
     });
 
-    it('корректно передаёт пропсы в VTaskListItem', () => {
+    it('correct props passed to VTaskListItem', () => {
         const wrapper = mount(VTaskList, {
             props: {
                 tasks: mockTasks,
