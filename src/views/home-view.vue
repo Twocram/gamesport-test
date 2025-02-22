@@ -22,6 +22,7 @@ onMounted(() => {
 
     <v-task-form />
 
-    <v-task-list :tasks />
+    <v-task-list v-if="tasks.length" :tasks />
+    <div v-else class="text-center">No tasks found</div>
   </div>
 </template>
