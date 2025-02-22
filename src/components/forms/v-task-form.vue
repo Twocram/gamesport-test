@@ -62,7 +62,7 @@ watch(currentFilterOption, async () => {
 </script>
 
 <template>
-    <div class="flex mb-6 flex-col">
+    <form @submit.prevent="addButtonHandler" class="flex mb-6 flex-col">
         <div>
             <span class="block text-sm font-medium text-gray-700 mb-1.5">Filter by:</span>
             <div class="flex gap-1.5 mb-3">
@@ -72,10 +72,10 @@ watch(currentFilterOption, async () => {
         </div>
         <span class="block text-sm font-medium text-gray-700 mb-1.5">Create task:</span>
         <v-input class="mb-3" v-model="taskTitle" type="text" placeholder="add" />
-        <v-button @click="addButtonHandler">
+        <v-button type="submit">
             {{ $t('actions.add') }}
         </v-button>
-    </div>
+    </form>
 </template>
 
 <style scoped></style>
