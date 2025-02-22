@@ -22,5 +22,9 @@
     "settings": {
         "title": "Settings",
         "chooseLanguage": "Choose language"
+    },
+    "about": {
+        "title": "About",
+        "content": "Develop by Maslov Artyom in 2025 for GameSport"
     }
 }

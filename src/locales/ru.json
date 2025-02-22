@@ -22,5 +22,9 @@
     "settings": {
         "title": "Настройки",
         "chooseLanguage": "Выберите язык"
+    },
+    "about": {
+        "title": "О нас",
+        "content": "Разработано Масловым Артёмом в 2025 для GameSport"
     }
 }
