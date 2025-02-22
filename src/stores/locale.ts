@@ -10,8 +10,8 @@ export const useLocaleStore = defineStore('locale', () => {
 
     function checkLocale() {
         if (!storageLocale) {
-            localStorage.setItem('locale', 'ru');
-            locale.value = 'ru';
+            localStorage.setItem('locale', 'en');
+            locale.value = 'en';
         }
 
         locale.value = storageLocale

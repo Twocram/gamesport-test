@@ -10,8 +10,8 @@ export const useTaskStore = defineStore('task', () => {
         tasks.value = _tasks;
     }
 
-    async function fetchTasks() {
-        const _tasks = await taskAPI.getTasks();
+    async function fetchTasks(title: string = '', isCompleted: boolean | null = null) {
+        const _tasks = await taskAPI.getTasks(title, isCompleted);
 
         setTasks(_tasks);
     }

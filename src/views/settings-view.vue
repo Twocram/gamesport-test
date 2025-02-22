@@ -22,7 +22,7 @@ function saveSettings() {
     <div class="min-h-screen bg-gray-100 py-8">
         <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
             <h1 class="text-2xl font-bold mb-6 text-center">{{ $t('settings.title') }}</h1>
-            <v-select :options="localeOptions" v-model="currentLocale"
+            <v-select class="mb-6" :options="localeOptions" v-model="currentLocale"
                 :label="$t('settings.chooseLanguage')"></v-select>
 
             <v-button class="w-full" @click="saveSettings">
