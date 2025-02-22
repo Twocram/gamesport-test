@@ -34,8 +34,8 @@ const currentRoute = computed(() => {
 </script>
 
 <template>
-    <header class="bg-gray-800 py-4">
-        <nav class="container mx-auto flex justify-between">
+    <header class="bg-gray-800 p-4">
+        <nav class="container flex justify-between">
             <ul class="flex items-center">
                 <li v-for="item in menuItems" :key="item.name" class="mr-6">
                     <router-link :to="item.link" class="text-gray-400 hover:text-white"

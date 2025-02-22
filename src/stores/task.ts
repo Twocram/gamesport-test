@@ -2,6 +2,7 @@ import * as taskAPI from "@/api/task";
 import type { Task } from "@/types/task";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { toast } from "vue3-toastify";
 
 export const useTaskStore = defineStore('task', () => {
     const tasks = ref<Task[]>([])
@@ -21,6 +22,7 @@ export const useTaskStore = defineStore('task', () => {
 
         if (success) {
             setTasks([...tasks.value, task]);
+            toast.success('Task successfully added')
         }
     }
 
@@ -37,6 +39,7 @@ export const useTaskStore = defineStore('task', () => {
 
         if (success) {
             setTasks(tasks.value.map(t => t.id === task.id ? task : t));
+            toast.success('Task successfully updated')
         }
     }
 
