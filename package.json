@@ -10,7 +10,7 @@
     "test:unit": "vitest",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "json-server": "json-server db.json"
+    "dev:server": "json-server db.json"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.7",

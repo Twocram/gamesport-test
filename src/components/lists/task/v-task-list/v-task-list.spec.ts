@@ -1,8 +1,19 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { mount } from '@vue/test-utils';
+import { mount, config } from '@vue/test-utils';
 import VTaskList from './v-task-list.vue'; 
 import VTaskListItem from '../v-task-list-item/v-task-list-item.vue';
 import { createPinia, setActivePinia } from 'pinia';
+
+config.global.components = {
+    VTaskListItem
+}
+
+const mockT = (key: string) => key;
+
+
+config.global.mocks = {
+    $t: mockT
+}
 
 const mockTasks = [
     {
@@ -17,7 +28,6 @@ const mockTasks = [
     },
 ];
 
-const mockT = (key: string) => key;
 
 describe('VTaskList.vue', () => {
     beforeEach(() => {
@@ -28,14 +38,6 @@ describe('VTaskList.vue', () => {
         const wrapper = mount(VTaskList, {
             props: {
                 tasks: mockTasks,
-            },
-            global: {
-                components: {
-                    VTaskListItem,
-                },
-                mocks: {
-                    $t: mockT
-                }
             },
         });
 
@@ -52,14 +54,6 @@ describe('VTaskList.vue', () => {
             props: {
                 tasks: [],
             },
-            global: {
-                components: {
-                    VTaskListItem,
-                },
-                mocks: {
-                    $t: mockT
-                }
-            },
         });
 
         const taskItems = wrapper.findAllComponents(VTaskListItem);
@@ -70,14 +64,6 @@ describe('VTaskList.vue', () => {
         const wrapper = mount(VTaskList, {
             props: {
                 tasks: mockTasks,
-            },
-            global: {
-                components: {
-                    VTaskListItem,
-                },
-                mocks: {
-                    $t: mockT
-                }
             },
         });
 
