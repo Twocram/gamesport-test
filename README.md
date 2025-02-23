@@ -1,39 +1,74 @@
-# gamesport-test
+# Описание проекта
 
-This template should help get you started developing with Vue 3 in Vite.
+## Основа
 
-## Recommended IDE Setup
+Для разработки интерфейса использовались следующие технологии:
+- Vue 3 + Composition API
+- TypeScript
+- i18n
+- Tailwindcss
+- Pinia
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Тестирование
 
-## Type Support for `.vue` Imports in TS
+Для Unit тестирования используется [Vitest](https://vitest.dev/)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Сервер
 
-## Customize configuration
+Для иммитации работы сервера используется [json-server](https://www.npmjs.com/package/json-server)
 
-See [Vite Configuration Reference](https://vite.dev/config/).
 
-## Project Setup
+## Запуск проекта
 
-```sh
+Перед запуском проекта необходимо установить зависимости:
+
+```shell
+# npm
+npm install
+
+# pnpm
 pnpm install
+
+#yarn
+yarn install
 ```
 
-### Compile and Hot-Reload for Development
 
-```sh
+Запуск json-server:
+
+```shell
+#npm
+npm run dev:server
+
+#pnpm
+pnpm dev:server
+
+#yarn
+yarn dev:server
+```
+
+Запуск dev-сервера:
+```shell
+#npm
+npm run dev
+
+#pnpm
 pnpm dev
+
+#yarn
+yarn dev
 ```
 
-### Type-Check, Compile and Minify for Production
+## Тестирование
+Запуск unit тестов:
 
-```sh
-pnpm build
-```
+```shell
+#npm
+npm run test:unit
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
+#pnpm
 pnpm test:unit
+
+#yarn
+yarn test:unit
 ```
