@@ -26,5 +26,8 @@
     "about": {
         "title": "About",
         "content": "Develop by Maslov Artyom in 2025 for GameSport"
+    },
+    "task": {
+        "isEmpty": "List is empty"
     }
 }

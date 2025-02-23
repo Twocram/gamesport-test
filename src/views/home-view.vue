@@ -32,7 +32,7 @@ const queryIsCompleted = computed<boolean | null>(() => {
   return null;
 })
 
-const CURRENT_TASKS_PAGE = ref(1);
+const currentPage = ref(1);
 
 const tasksPages = computed<number>(() => {
   return taskStore.tasksPages;
@@ -48,14 +48,14 @@ const { isIntersecting } = useIntersectionObserver(targetElement, {
 
 async function fetchTasks() {
   isLoading.value = true;
-  const { data, pages } = await taskAPI.getTasks(queryTitle.value, queryIsCompleted.value, CURRENT_TASKS_PAGE.value);
+  const { data, pages } = await taskAPI.getTasks(queryTitle.value, queryIsCompleted.value, currentPage.value);
   taskStore.setTasks(data)
   taskStore.setPages(pages);
   isLoading.value = false;
 }
 
 async function loadMoreTasks() {
-  const { data, pages } = await taskAPI.getTasks(queryTitle.value, queryIsCompleted.value, CURRENT_TASKS_PAGE.value);
+  const { data, pages } = await taskAPI.getTasks(queryTitle.value, queryIsCompleted.value, currentPage.value);
   taskStore.pushTasks(data);
   taskStore.setPages(pages)
 }
@@ -63,9 +63,9 @@ async function loadMoreTasks() {
 watch(isIntersecting, async (newValue) => {
   if (!newValue) return;
   if (isLoading.value) return;
-  if (tasksPages.value === CURRENT_TASKS_PAGE.value) return;
+  if (tasksPages.value === currentPage.value) return;
 
-  CURRENT_TASKS_PAGE.value++;
+  currentPage.value++;
 
   await loadMoreTasks()
 })
@@ -79,11 +79,11 @@ onMounted(async () => {
   <div class=" bg-white p-6 rounded-lg shadow-lg">
     <h1 class="text-2xl font-bold mb-6 text-center">GameSport Todo App</h1>
 
-    <v-task-form :current-page-number="CURRENT_TASKS_PAGE" @reset-pages="CURRENT_TASKS_PAGE = 1" />
+    <v-task-form :current-page-number="currentPage" @reset-pages="currentPage = 1" />
 
     <template v-if="!isLoading">
       <v-task-list v-if="tasks.length" :tasks />
-      <div v-else class="text-center">No tasks found</div>
+      <div v-else class="text-center">{{ $t('task.isEmpty') }}</div>
     </template>
 
     <template v-else>
