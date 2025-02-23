@@ -1,14 +1,22 @@
 import type { Task } from "@/types/task";
 
-export async function getTasks(title: string, isCompleted: boolean | null): Promise<Task[]> {
+export async function getTasks(title: string, isCompleted: boolean | null, page: number): Promise<{data: Task[], pages: number}> {
     try {
-        const response = await fetch('/api/tasks/' + `?title=${title}` + (isCompleted !== null ? `&isCompleted=${isCompleted}` : ''), {
+        let url = `/api/tasks?title=${title}&_page=${page}`;
+
+        if (isCompleted !== null) {
+            url += `&isCompleted=${isCompleted}`;
+        }
+
+        const response = await fetch(url, {
             method: 'GET',
         });
 
-        return await response.json() as Task[];
+        const { data, pages } = await response.json();
+
+        return { data, pages }
     } catch (error: unknown) {
-        return [];
+        return {data: [], pages: 0};
     }
 }
 

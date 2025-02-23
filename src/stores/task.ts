@@ -7,17 +7,18 @@ import { toast } from "vue3-toastify";
 export const useTaskStore = defineStore('task', () => {
     const tasks = ref<Task[]>([])
 
-    const isLoading = ref(false)
+    const tasksPages = ref(0);
 
     function setTasks(_tasks: Task[]) {
         tasks.value = _tasks;
     }
 
-    async function fetchTasks(title: string = '', isCompleted: boolean | null = null) {
-        isLoading.value = true;
-        const _tasks = await taskAPI.getTasks(title, isCompleted);
-        setTasks(_tasks);
-        isLoading.value = false;
+    function pushTasks(_tasks: Task[]) {
+        tasks.value.push(..._tasks);
+    }
+
+    function setPages(pages: number) {
+        tasksPages.value = pages;
     }
 
     async function addTask(task: Task) {
@@ -30,8 +31,7 @@ export const useTaskStore = defineStore('task', () => {
     }
 
     async function removeTask(taskId: string) {
-        const { success } =await taskAPI.removeTask(taskId);
-
+        const { success } = await taskAPI.removeTask(taskId);
         if (success) {
             setTasks(tasks.value.filter(task => task.id !== taskId));
         }
@@ -48,11 +48,12 @@ export const useTaskStore = defineStore('task', () => {
 
     return {
         tasks,
-        isLoading,
+        tasksPages,
         setTasks,
+        setPages,
         addTask,
         removeTask,
-        fetchTasks,
         updateTask,
+        pushTasks,
     }
 })

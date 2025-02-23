@@ -1,12 +1,26 @@
 <script setup lang="ts">
-import vInput from '../ui/v-input.vue';
-import vButton from '../ui/v-button.vue';
-import { computed, ref, watch } from 'vue';
+import VInput from '../ui/v-input.vue';
+import VButton from '../ui/v-button.vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useTaskStore } from '@/stores/task';
 import VSelect from '../ui/v-select.vue';
 import { debounce } from '@/utils/debounce';
+import { useRoute, useRouter } from 'vue-router';
+import * as taskAPI from "@/api/task";
+
+type Props = {
+    currentPageNumber: number
+}
+
+defineProps<Props>();
+
+const emits = defineEmits(['resetPages'])
 
 const taskTitle = ref('');
+
+const router = useRouter()
+
+const route = useRoute();
 
 const taskStore = useTaskStore();
 
@@ -26,6 +40,16 @@ const filterOptions = [
         value: 'uncompleted'
     }
 ]
+
+onMounted(() => {
+    if (route.query.title) {
+        filterTitle.value = String(route.query.title);
+    }
+
+    if (route.query.isCompleted) {
+        currentFilterOption.value = String(route.query.isCompleted);
+    }
+})
 
 const filterTitle = ref('');
 
@@ -52,12 +76,26 @@ const filterOption = computed<boolean | null>(() => {
     return null;
 })
 
-const debouncedFetch = debounce(async () => await taskStore.fetchTasks(filterTitle.value, filterOption.value), 500);
+async function fetchTasks() {
+    const { data, pages } = await taskAPI.getTasks(filterTitle.value, filterOption.value, 1);
+    taskStore.setTasks(data);
+    taskStore.setPages(pages);
+}
 
-watch(filterTitle, debouncedFetch);
+const debouncedFetch = debounce(async function () {
+    await fetchTasks()
+}, 500);
+
+watch(filterTitle, () => {
+    router.push({ query: { ...route.query, title: filterTitle.value } })
+    debouncedFetch();
+    emits('resetPages')
+});
 
 watch(currentFilterOption, async () => {
-    await taskStore.fetchTasks(filterTitle.value, filterOption.value);
+    router.push({ query: { ...route.query, isCompleted: currentFilterOption.value } })
+    await fetchTasks()
+    emits('resetPages')
 })
 </script>
 
