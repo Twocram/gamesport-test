@@ -46,12 +46,18 @@ const { isIntersecting } = useIntersectionObserver(targetElement, {
   threshold: 0.5
 })
 
-async function fetchTasks(isFirstTime: boolean) {
+async function fetchTasks() {
   isLoading.value = true;
   const { data, pages } = await taskAPI.getTasks(queryTitle.value, queryIsCompleted.value, CURRENT_TASKS_PAGE.value);
-  isFirstTime ? taskStore.setTasks(data) : taskStore.pushTasks(data);
+  taskStore.setTasks(data)
   taskStore.setPages(pages);
   isLoading.value = false;
+}
+
+async function loadMoreTasks() {
+  const { data, pages } = await taskAPI.getTasks(queryTitle.value, queryIsCompleted.value, CURRENT_TASKS_PAGE.value);
+  taskStore.pushTasks(data);
+  taskStore.setPages(pages)
 }
 
 watch(isIntersecting, async (newValue) => {
@@ -61,11 +67,11 @@ watch(isIntersecting, async (newValue) => {
 
   CURRENT_TASKS_PAGE.value++;
 
-  await fetchTasks(false)
+  await loadMoreTasks()
 })
 
 onMounted(async () => {
-  await fetchTasks(true)
+  await fetchTasks()
 })
 </script>
 
