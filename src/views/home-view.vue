@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import VTaskForm from '@/components/forms/v-task-form.vue';
 import VTaskList from '@/components/lists/task/v-task-list/v-task-list.vue';
-import vTaskListItemSkeleton from '@/components/lists/task/v-task-list-item-skeleton/v-task-list-item-skeleton.vue';
+import vTaskListItemSkeleton from '@/components/lists/task/v-task-list-item-skeleton.vue';
 import { useTaskStore } from '@/stores/task';
 import type { Task } from '@/types/task';
 import { computed, onMounted } from 'vue';
