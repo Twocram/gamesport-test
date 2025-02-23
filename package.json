@@ -13,28 +13,28 @@
     "dev:server": "json-server db.json"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.0.7",
+    "@tailwindcss/vite": "^4.0.8",
     "json-server": "1.0.0-beta.3",
     "pinia": "^3.0.1",
-    "tailwindcss": "^4.0.7",
+    "tailwindcss": "^4.0.8",
     "vue": "^3.5.13",
-    "vue-i18n": "10",
+    "vue-i18n": "^10.0.5",
     "vue-router": "^4.5.0",
     "vue3-toastify": "^0.2.8"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.0",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^22.13.4",
+    "@types/node": "^22.13.5",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.7.0",
     "jsdom": "^26.0.0",
     "npm-run-all2": "^7.0.2",
     "typescript": "~5.7.3",
-    "vite": "^6.1.0",
+    "vite": "^6.1.1",
     "vite-plugin-vue-devtools": "^7.7.2",
-    "vitest": "^3.0.5",
-    "vue-tsc": "^2.2.2"
+    "vitest": "^3.0.6",
+    "vue-tsc": "^2.2.4"
   }
 }
