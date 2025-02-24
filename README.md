@@ -67,6 +67,34 @@ pnpm dev
 yarn dev
 ```
 
+## Форматирование
+
+Запуск линтинга:
+
+```shell
+#npm
+npm run lint
+
+#pnpm
+pnpm lint
+
+#yarn
+yarn lint
+```
+
+Фикс линтинга:
+
+```shell
+#npm
+npm run lint:fix
+
+#pnpm
+pnpm lint:fix
+
+#yarn
+yarn lint:fix
+```
+
 ## Тестирование
 Запуск unit тестов:
 
