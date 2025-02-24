@@ -31,6 +31,11 @@ export const useTaskStore = defineStore('task', () => {
         const { success } = await taskAPI.removeTask(taskId);
         if (success) {
             setTasks(tasks.value.filter(task => task.id !== taskId));
+            toast.success('Task successfully removed')
+        }
+
+        if (!success) {
+            toast.error('An error occurred while removing the task.');
         }
     }
 
