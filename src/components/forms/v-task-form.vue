@@ -64,7 +64,7 @@ async function addButtonHandler() {
     }
 }
 
-const filterOption = computed<boolean | null>(() => {
+const isCompleted = computed<boolean | null>(() => {
     if (currentFilterOption.value === 'completed') {
         return true;
     }
@@ -77,7 +77,7 @@ const filterOption = computed<boolean | null>(() => {
 })
 
 async function fetchTasks() {
-    const { data, pages } = await taskAPI.getTasks(filterTitle.value, filterOption.value, 1);
+    const { data, pages } = await taskAPI.getTasks({ title: filterTitle.value, isCompleted: isCompleted.value, page: 1 });
     taskStore.setTasks(data);
     taskStore.setPages(pages);
 }

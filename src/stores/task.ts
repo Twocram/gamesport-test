@@ -24,10 +24,7 @@ export const useTaskStore = defineStore('task', () => {
     async function addTask(task: Task) {
         const { success } = await taskAPI.addTask(task);
 
-        if (success) {
-            setTasks([...tasks.value, task]);
-            toast.success('Task successfully added')
-        }
+        success ? toast.success('Task successfully added. Please refresh the page.') : toast.error('An error occurred while adding the task.');
     }
 
     async function removeTask(taskId: string) {
@@ -43,6 +40,10 @@ export const useTaskStore = defineStore('task', () => {
         if (success) {
             setTasks(tasks.value.map(t => t.id === task.id ? task : t));
             toast.success('Task successfully updated')
+        }
+
+        if (!success) {
+            toast.error('An error occurred while updating the task.');
         }
     }
 

@@ -1,11 +1,17 @@
 import type { Task } from "@/types/task";
 
-export async function getTasks(title: string, isCompleted: boolean | null, page: number): Promise<{data: Task[], pages: number}> {
-    try {
-        let url = `/api/tasks?title=${title}&_page=${page}`;
+type TaskFetchOptions = {
+    title: string
+    isCompleted: boolean | null
+    page: number
+}
 
-        if (isCompleted !== null) {
-            url += `&isCompleted=${isCompleted}`;
+export async function getTasks(options: TaskFetchOptions): Promise<{data: Task[], pages: number}> {
+    try {
+        let url = `/api/tasks?title=${options.title}&_page=${options.page}`;
+
+        if (options.isCompleted !== null) {
+            url += `&isCompleted=${options.isCompleted}`;
         }
 
         const response = await fetch(url, {

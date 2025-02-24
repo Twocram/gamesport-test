@@ -48,14 +48,14 @@ const { isIntersecting } = useIntersectionObserver(targetElement, {
 
 async function fetchTasks() {
   isLoading.value = true;
-  const { data, pages } = await taskAPI.getTasks(queryTitle.value, queryIsCompleted.value, currentPage.value);
+  const { data, pages } = await taskAPI.getTasks({ title: queryTitle.value, isCompleted: queryIsCompleted.value, page: currentPage.value });
   taskStore.setTasks(data)
   taskStore.setPages(pages);
   isLoading.value = false;
 }
 
 async function loadMoreTasks() {
-  const { data, pages } = await taskAPI.getTasks(queryTitle.value, queryIsCompleted.value, currentPage.value);
+  const { data, pages } = await taskAPI.getTasks({ title: queryTitle.value, isCompleted: queryIsCompleted.value, page: currentPage.value });
   taskStore.pushTasks(data);
   taskStore.setPages(pages)
 }
