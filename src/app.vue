@@ -1,13 +1,26 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import VHeader from './components/v-header.vue'
 import MainLayout from './layouts/main-layout.vue'
-import { useLocaleStore } from './stores/locale'
 
-const localeStore = useLocaleStore()
+function checkLocale() {
+  const storageLocale = localStorage.getItem('locale')
+
+  const { locale } = useI18n()
+
+  if (!storageLocale) {
+    localStorage.setItem('locale', 'en')
+    locale.value = 'en'
+  }
+
+  if (storageLocale) {
+    locale.value = storageLocale
+  }
+}
 
 onMounted(() => {
-  localeStore.checkLocale()
+  checkLocale()
 })
 </script>
 

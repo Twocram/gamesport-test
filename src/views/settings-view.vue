@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import vButton from '@/components/ui/v-button.vue'
 import vSelect from '@/components/ui/v-select.vue'
-import { useLocaleStore } from '@/stores/locale'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const localeStore = useLocaleStore()
+const currentLocale = ref(localStorage.getItem('locale') as string)
 
-const currentLocale = ref(localeStore.localLocale)
+const { locale } = useI18n()
 
 const localeOptions = [
   { label: 'Русский', value: 'ru' },
@@ -14,7 +14,8 @@ const localeOptions = [
 ]
 
 function saveSettings() {
-  localeStore.setLocale(currentLocale.value)
+  localStorage.setItem('locale', currentLocale.value)
+  locale.value = currentLocale.value
 }
 </script>
 
@@ -23,10 +24,7 @@ function saveSettings() {
     <h1 class="text-2xl font-bold mb-6 text-center">
       {{ $t('settings.title') }}
     </h1>
-    <v-select
-      v-model="currentLocale" class="mb-6" :options="localeOptions"
-      :label="$t('settings.chooseLanguage')"
-    />
+    <v-select v-model="currentLocale" class="mb-6" :options="localeOptions" :label="$t('settings.chooseLanguage')" />
 
     <v-button class="w-full" @click="saveSettings">
       {{ $t('actions.save') }}
