@@ -18,13 +18,17 @@ const emits = defineEmits(['resetPages'])
 
 const taskTitle = ref('');
 
+const filter = ref({
+    title: '',
+    filterOption: 'all'
+})
+
 const router = useRouter()
 
 const route = useRoute();
 
 const taskStore = useTaskStore();
 
-const currentFilterOption = ref('all');
 
 const filterOptions = [
     {
@@ -43,15 +47,14 @@ const filterOptions = [
 
 onMounted(() => {
     if (route.query.title) {
-        filterTitle.value = String(route.query.title);
+        filter.value.title = String(route.query.title);
     }
 
     if (route.query.isCompleted) {
-        currentFilterOption.value = String(route.query.isCompleted);
+        filter.value.filterOption = String(route.query.isCompleted);
     }
 })
 
-const filterTitle = ref('');
 
 async function addButtonHandler() {
     if (taskTitle.value) {
@@ -65,11 +68,11 @@ async function addButtonHandler() {
 }
 
 const isCompleted = computed<boolean | null>(() => {
-    if (currentFilterOption.value === 'completed') {
+    if (filter.value.filterOption === 'completed') {
         return true;
     }
 
-    if (currentFilterOption.value === 'uncompleted') {
+    if (filter.value.filterOption === 'uncompleted') {
         return false;
     }
 
@@ -77,7 +80,7 @@ const isCompleted = computed<boolean | null>(() => {
 })
 
 async function fetchTasks() {
-    const { data, pages } = await taskAPI.getTasks({ title: filterTitle.value, isCompleted: isCompleted.value, page: 1 });
+    const { data, pages } = await taskAPI.getTasks({ title: filter.value.title, isCompleted: isCompleted.value, page: 1 });
     taskStore.setTasks(data);
     taskStore.setPages(pages);
 }
@@ -86,14 +89,14 @@ const debouncedFetch = debounce(async function () {
     await fetchTasks()
 }, 500);
 
-watch(filterTitle, () => {
-    router.push({ query: { ...route.query, title: filterTitle.value } })
+watch(() => filter.value.title, () => {
+    router.push({ query: { ...route.query, title: filter.value.title } })
     debouncedFetch();
     emits('resetPages')
 });
 
-watch(currentFilterOption, async () => {
-    router.push({ query: { ...route.query, isCompleted: currentFilterOption.value } })
+watch(() => filter.value.filterOption, async () => {
+    router.push({ query: { ...route.query, isCompleted: filter.value.filterOption } })
     await fetchTasks()
     emits('resetPages')
 })
@@ -104,8 +107,8 @@ watch(currentFilterOption, async () => {
         <div>
             <span class="block text-sm font-medium text-gray-700 mb-1.5">Filter by:</span>
             <div class="flex gap-1.5 mb-3">
-                <v-input v-model="filterTitle" />
-                <v-select :options="filterOptions" v-model="currentFilterOption" />
+                <v-input v-model="filter.title" />
+                <v-select :options="filterOptions" v-model="filter.filterOption" />
             </div>
         </div>
         <span class="block text-sm font-medium text-gray-700 mb-1.5">Create task:</span>
