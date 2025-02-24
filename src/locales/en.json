@@ -1,33 +1,33 @@
 {
-    "actions": {
-        "save": "Save",
-        "edit": "Edit",
-        "delete": "Delete",
-        "add": "Add"
-    },
-    "menu": {
-        "home": "Home",
-        "about": "About",
-        "settings": "Settings"
-    },
-    "placeholder": {
-        "task": {
-            "input": {
-                "default": "Please enter text",
-                "add": "Add a task",
-                "update": "Update task title"
-            }
-        }
-    },
-    "settings": {
-        "title": "Settings",
-        "chooseLanguage": "Choose language"
-    },
-    "about": {
-        "title": "About",
-        "content": "Develop by Maslov Artyom in 2025 for GameSport"
-    },
+  "actions": {
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add"
+  },
+  "menu": {
+    "home": "Home",
+    "about": "About",
+    "settings": "Settings"
+  },
+  "placeholder": {
     "task": {
-        "isEmpty": "List is empty"
+      "input": {
+        "default": "Please enter text",
+        "add": "Add a task",
+        "update": "Update task title"
+      }
     }
+  },
+  "settings": {
+    "title": "Settings",
+    "chooseLanguage": "Choose language"
+  },
+  "about": {
+    "title": "About",
+    "content": "Develop by Maslov Artyom in 2025 for GameSport"
+  },
+  "task": {
+    "isEmpty": "List is empty"
+  }
 }

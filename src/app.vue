@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import VHeader from './components/v-header.vue';
-import MainLayout from './layouts/main-layout.vue';
-import { useLocaleStore } from './stores/locale';
+import { onMounted } from 'vue'
+import VHeader from './components/v-header.vue'
+import MainLayout from './layouts/main-layout.vue'
+import { useLocaleStore } from './stores/locale'
 
-const localeStore = useLocaleStore();
+const localeStore = useLocaleStore()
 
 onMounted(() => {
-  localeStore.checkLocale();
+  localeStore.checkLocale()
 })
 </script>
 
 <template>
-  <v-header />
-  <main-layout>
+  <VHeader />
+  <MainLayout>
     <RouterView />
-  </main-layout>
+  </MainLayout>
 </template>
 
 <style scoped></style>

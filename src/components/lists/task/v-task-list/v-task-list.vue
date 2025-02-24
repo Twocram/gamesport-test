@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { Task } from '@/types/task';
-import VTaskListItem from '../v-task-list-item/v-task-list-item.vue';
+import type { Task } from '@/types/task'
+import VTaskListItem from '../v-task-list-item/v-task-list-item.vue'
 
-type Props = {
-    tasks: Task[]
+interface Props {
+  tasks: Task[]
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 
 <template>
-    <ul>
-        <v-task-list-item v-for="task in tasks" :key="task.id" :task />
-    </ul>
+  <ul>
+    <VTaskListItem v-for="task in tasks" :key="task.id" :task />
+  </ul>
 </template>
 
 <style scoped></style>

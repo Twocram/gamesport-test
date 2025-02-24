@@ -1,11 +1,11 @@
-export type Task = {
-    id: string;
-    title: string;
-    isCompleted: boolean;
+export interface Task {
+  id: string
+  title: string
+  isCompleted: boolean
 }
 
-export type TaskFetchOptions = {
-    title: string;
-    isCompleted: boolean | null;
-    page: number;
+export interface TaskFetchOptions {
+  title: string
+  isCompleted: boolean | null
+  page: number
 }

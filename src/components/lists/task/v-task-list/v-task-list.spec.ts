@@ -1,75 +1,73 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { mount, config } from '@vue/test-utils';
-import VTaskList from './v-task-list.vue'; 
-import VTaskListItem from '../v-task-list-item/v-task-list-item.vue';
-import { createPinia, setActivePinia } from 'pinia';
+import { config, mount } from '@vue/test-utils'
+import { createPinia, setActivePinia } from 'pinia'
+import { beforeEach, describe, expect, it } from 'vitest'
+import VTaskListItem from '../v-task-list-item/v-task-list-item.vue'
+import VTaskList from './v-task-list.vue'
 
 config.global.components = {
-    VTaskListItem
+  VTaskListItem,
 }
 
-const mockT = (key: string) => key;
-
+const mockT = (key: string) => key
 
 config.global.mocks = {
-    $t: mockT
+  $t: mockT,
 }
 
 const mockTasks = [
-    {
-        id: '1',
-        title: 'Task 1',
-        isCompleted: false,
-    },
-    {
-        id: '2',
-        title: 'Task 2',
-        isCompleted: true,
-    },
-];
+  {
+    id: '1',
+    title: 'Task 1',
+    isCompleted: false,
+  },
+  {
+    id: '2',
+    title: 'Task 2',
+    isCompleted: true,
+  },
+]
 
+describe('vTaskList.vue', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+  })
 
-describe('VTaskList.vue', () => {
-    beforeEach(() => {
-        setActivePinia(createPinia())
+  it('render list of tasks', () => {
+    const wrapper = mount(VTaskList, {
+      props: {
+        tasks: mockTasks,
+      },
     })
 
-    it('render list of tasks', () => {
-        const wrapper = mount(VTaskList, {
-            props: {
-                tasks: mockTasks,
-            },
-        });
+    const taskItems = wrapper.findAllComponents(VTaskListItem)
+    expect(taskItems.length).toBe(mockTasks.length)
 
-        const taskItems = wrapper.findAllComponents(VTaskListItem);
-        expect(taskItems.length).toBe(mockTasks.length);
+    taskItems.forEach((taskItem, index) => {
+      expect(taskItem.props('task')).toEqual(mockTasks[index])
+    })
+  })
 
-        taskItems.forEach((taskItem, index) => {
-            expect(taskItem.props('task')).toEqual(mockTasks[index]);
-        });
-    });
+  it('doesnt render list of tasks', () => {
+    const wrapper = mount(VTaskList, {
+      props: {
+        tasks: [],
+      },
+    })
 
-    it('doesnt render list of tasks', () => {
-        const wrapper = mount(VTaskList, {
-            props: {
-                tasks: [],
-            },
-        });
+    const taskItems = wrapper.findAllComponents(VTaskListItem)
+    expect(taskItems.length).toBe(0)
+  })
 
-        const taskItems = wrapper.findAllComponents(VTaskListItem);
-        expect(taskItems.length).toBe(0);
-    });
+  it('correct props passed to VTaskListItem', () => {
+    const wrapper = mount(VTaskList, {
+      props: {
+        tasks: mockTasks,
+      },
+    })
 
-    it('correct props passed to VTaskListItem', () => {
-        const wrapper = mount(VTaskList, {
-            props: {
-                tasks: mockTasks,
-            },
-        });
-
-        const taskItems = wrapper.findAllComponents(VTaskListItem);
-        taskItems.forEach((taskItem, index) => {
-            expect(taskItem.props('task')).toEqual(mockTasks[index]);
-        });
-    });
-});
+    const taskItems = wrapper.findAllComponents(VTaskListItem)
+    taskItems.forEach((taskItem, index) => {
+      expect(taskItem.props('task')).toEqual(mockTasks[index])
+    })
+  })
+})

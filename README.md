@@ -17,7 +17,6 @@
 
 Для иммитации работы сервера используется [json-server](https://www.npmjs.com/package/json-server)
 
-
 ## Запуск проекта
 
 Перед запуском проекта необходимо установить зависимости:
@@ -32,7 +31,6 @@ pnpm install
 #yarn
 yarn install
 ```
-
 
 Запуск json-server:
 
