@@ -16,7 +16,7 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <button
-    :type class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded cursor-pointer" :class="{
+    :type class="bg-blue-500 outline-none hover:bg-blue-600 text-white px-4 py-2 rounded cursor-pointer" :class="{
       'bg-red-500 hover:bg-red-600': variant === 'danger',
       'bg-gray-500 hover:bg-gray-600': variant === 'secondary',
       'bg-green-500 hover:bg-green-600': variant === 'success',

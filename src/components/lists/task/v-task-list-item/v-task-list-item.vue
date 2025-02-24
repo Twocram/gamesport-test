@@ -43,7 +43,10 @@ async function toggleMode() {
       {{ task.title }}
     </span>
 
-    <VInput v-else v-model="propsTitle" class="mr-1" type="text" placeholder="update" />
+    <VInput
+      v-else v-model="propsTitle" class="mr-1" type="text" placeholder="update"
+      @keydown.prevent.enter="toggleMode"
+    />
 
     <div class="flex gap-1.5">
       <v-button :variant="isEditMode ? 'success' : 'primary'" @click="toggleMode">
