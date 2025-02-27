@@ -28,9 +28,9 @@ export async function getTasks(options: TaskFetchOptions): Promise<{ data: Task[
   }
 }
 
-export async function addTask(task: Task): Promise<{ success: boolean }> {
+export async function addTask(task: Task): Promise<{ success: boolean, task: Task | null }> {
   try {
-    await fetch('/api/tasks', {
+    const response = await fetch('/api/tasks', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,11 +38,13 @@ export async function addTask(task: Task): Promise<{ success: boolean }> {
       body: JSON.stringify(task),
     })
 
-    return { success: true }
+    const data = await response.json()
+
+    return { success: true, task: data }
   }
   catch (error: unknown) {
     console.error('Error while adding task', error)
-    return { success: false }
+    return { success: false, task: null }
   }
 }
 

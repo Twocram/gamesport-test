@@ -25,9 +25,17 @@ export const useTaskStore = defineStore('task', () => {
   }
 
   async function addTask(task: Task) {
-    const { success } = await taskAPI.addTask(task)
+    const { success, task: newTask } = await taskAPI.addTask(task)
 
-    success ? useToast('success', t('task.toast.add.success')) : useToast('error', t('task.toast.add.error'))
+    if (success && newTask) {
+      if (tasks.value.length === 0 || tasks.value.length % 10 !== 0) {
+        setTasks([...tasks.value, newTask])
+      }
+      useToast('success', t('task.toast.add.success'))
+    }
+    else {
+      useToast('error', t('task.toast.add.error'))
+    }
   }
 
   async function removeTask(taskId: string) {
