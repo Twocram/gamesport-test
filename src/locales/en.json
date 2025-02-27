@@ -35,6 +35,23 @@
       "all": "All",
       "completed": "Completed",
       "uncompleted": "Uncompleted"
+    },
+    "validation": {
+      "titleRequired": "Title is required"
+    },
+    "toast": {
+      "add": {
+        "success": "Task successfully added.",
+        "error": "An error occurred while adding the task."
+      },
+      "remove": {
+        "success": "Task successfully removed.",
+        "error": "An error occurred while removing the task."
+      },
+      "update": {
+        "success": "Task successfully updated.",
+        "error": "An error occurred while updating the task."
+      }
     }
   }
 }

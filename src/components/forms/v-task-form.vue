@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import * as taskAPI from '@/api/task'
+import { useToast } from '@/composables/use-toast'
 import { useTaskStore } from '@/stores/task'
 import { debounce } from '@/utils/debounce'
 import { computed, onMounted, ref, watch } from 'vue'
@@ -65,6 +66,9 @@ async function addButtonHandler() {
       isCompleted: false,
     })
     taskTitle.value = ''
+  }
+  else {
+    useToast('warning', t('task.validation.titleRequired'))
   }
 }
 

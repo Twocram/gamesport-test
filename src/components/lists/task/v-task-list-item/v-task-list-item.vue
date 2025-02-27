@@ -3,6 +3,7 @@ import type { Task } from '@/types/task'
 import vButton from '@/components/ui/v-button.vue'
 import VCheckbox from '@/components/ui/v-checkbox.vue'
 import VInput from '@/components/ui/v-input.vue'
+import { useHandleKeydown } from '@/composables/use-handle-keydown'
 import { useTaskStore } from '@/stores/task'
 import { ref, watch } from 'vue'
 
@@ -33,6 +34,8 @@ async function toggleMode() {
   }
   isEditMode.value = !isEditMode.value
 }
+
+useHandleKeydown('Escape', () => isEditMode.value = false)
 </script>
 
 <template>

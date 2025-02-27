@@ -1,11 +1,14 @@
 import type { Task } from '@/types/task'
 import * as taskAPI from '@/api/task'
+import { useToast } from '@/composables/use-toast'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { toast } from 'vue3-toastify'
+import { useI18n } from 'vue-i18n'
 
 export const useTaskStore = defineStore('task', () => {
   const tasks = ref<Task[]>([])
+
+  const { t } = useI18n()
 
   const tasksPages = ref(0)
 
@@ -24,18 +27,18 @@ export const useTaskStore = defineStore('task', () => {
   async function addTask(task: Task) {
     const { success } = await taskAPI.addTask(task)
 
-    success ? toast.success('Task successfully added. Please refresh the page.') : toast.error('An error occurred while adding the task.')
+    success ? useToast('success', t('task.toast.add.success')) : useToast('error', t('task.toast.add.error'))
   }
 
   async function removeTask(taskId: string) {
     const { success } = await taskAPI.removeTask(taskId)
     if (success) {
       setTasks(tasks.value.filter(task => task.id !== taskId))
-      toast.success('Task successfully removed')
+      useToast('success', t('task.toast.remove.success'))
     }
 
     if (!success) {
-      toast.error('An error occurred while removing the task.')
+      useToast('error', t('task.toast.remove.error'))
     }
   }
 
@@ -44,11 +47,11 @@ export const useTaskStore = defineStore('task', () => {
 
     if (success) {
       setTasks(tasks.value.map(t => t.id === task.id ? task : t))
-      toast.success('Task successfully updated')
+      useToast('success', t('task.toast.update.success'))
     }
 
     if (!success) {
-      toast.error('An error occurred while updating the task.')
+      useToast('error', t('task.toast.update.success'))
     }
   }
 

@@ -35,6 +35,9 @@
       "all": "Все",
       "completed": "Завершенные",
       "uncompleted": "Не завершенные"
+    },
+    "validation": {
+      "titleRequired": "Заголовок необходим к заполнению"
     }
   }
 }
