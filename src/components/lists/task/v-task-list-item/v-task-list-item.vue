@@ -39,19 +39,20 @@ useHandleKeydown('Escape', () => isEditMode.value = false)
 </script>
 
 <template>
-  <li class="flex items-center justify-between pb-3 border-b border-gray-200 mb-2.5 last:mb-0">
-    <VCheckbox v-model="taskIsCompleted" />
-
-    <span v-if="!isEditMode" :class="{ 'line-through text-gray-500': task.isCompleted }">
-      {{ task.title }}
-    </span>
+  <li class="task-item flex items-center justify-between pb-3 border-b border-gray-200 mb-2.5 last:mb-0">
+    <div v-if="!isEditMode" class="flex items-center gap-1.5">
+      <VCheckbox v-model="taskIsCompleted" />
+      <span :class="{ 'line-through text-gray-500': task.isCompleted }" class="task-title">
+        {{ task.title }}
+      </span>
+    </div>
 
     <VInput
-      v-else v-model="propsTitle" class="mr-1" type="text" placeholder="update"
+      v-else v-model="propsTitle" class="mr-1 task-input" type="text" placeholder="update"
       @keydown.prevent.enter="toggleMode"
     />
 
-    <div class="flex gap-1.5">
+    <div class="task-actions flex gap-1.5">
       <v-button :variant="isEditMode ? 'success' : 'primary'" @click="toggleMode">
         {{ isEditMode ? $t('actions.save') : $t('actions.edit') }}
       </v-button>
@@ -62,4 +63,50 @@ useHandleKeydown('Escape', () => isEditMode.value = false)
   </li>
 </template>
 
-<style scoped></style>
+<style scoped>
+.task-item {
+  padding: 10px;
+}
+
+.task-title {
+  flex-grow: 1;
+  margin: 0 10px;
+  font-size: 16px;
+}
+
+.task-input {
+  flex-grow: 1;
+  margin: 0 10px;
+}
+
+.task-actions {
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .task-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .task-title {
+    margin: 10px 0;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .task-input {
+    margin: 10px 0;
+    width: 100%;
+  }
+
+  .task-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .task-actions v-button {
+    width: 48%;
+  }
+}
+</style>
