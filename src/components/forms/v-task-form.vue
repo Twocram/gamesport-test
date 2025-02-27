@@ -3,6 +3,7 @@ import * as taskAPI from '@/api/task'
 import { useTaskStore } from '@/stores/task'
 import { debounce } from '@/utils/debounce'
 import { computed, onMounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import VButton from '../ui/v-button.vue'
 import VInput from '../ui/v-input.vue'
@@ -15,6 +16,8 @@ interface Props {
 defineProps<Props>()
 
 const emits = defineEmits(['resetPages'])
+
+const { t } = useI18n()
 
 const taskTitle = ref('')
 
@@ -29,20 +32,20 @@ const route = useRoute()
 
 const taskStore = useTaskStore()
 
-const filterOptions = [
+const filterOptions = computed(() => [
   {
-    label: 'All',
+    label: t('task.filterOption.all'),
     value: 'all',
   },
   {
-    label: 'Completed',
+    label: t('task.filterOption.completed'),
     value: 'completed',
   },
   {
-    label: 'Uncompleted',
+    label: t('task.filterOption.uncompleted'),
     value: 'uncompleted',
   },
-]
+])
 
 onMounted(() => {
   if (route.query.title) {
@@ -103,13 +106,13 @@ watch(() => filter.value.filterOption, async () => {
 <template>
   <form class="flex mb-6 flex-col" @submit.prevent="addButtonHandler">
     <div>
-      <span class="block text-sm font-medium text-gray-700 mb-1.5">Filter by:</span>
+      <span class="block text-sm font-medium text-gray-700 mb-1.5">{{ $t('task.filter') }}:</span>
       <div class="flex gap-1.5 mb-3">
         <VInput v-model="filter.title" />
         <VSelect v-model="filter.filterOption" :options="filterOptions" />
       </div>
     </div>
-    <span class="block text-sm font-medium text-gray-700 mb-1.5">Create task:</span>
+    <span class="block text-sm font-medium text-gray-700 mb-1.5">{{ $t('task.create') }}:</span>
     <VInput v-model="taskTitle" class="mb-3" type="text" placeholder="add" />
     <VButton type="submit">
       {{ $t('actions.add') }}

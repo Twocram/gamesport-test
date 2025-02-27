@@ -28,6 +28,13 @@
     "content": "Develop by Maslov Artyom in 2025 for GameSport"
   },
   "task": {
-    "isEmpty": "List is empty"
+    "isEmpty": "List is empty",
+    "filter": "Filter by",
+    "create": "Create task",
+    "filterOption": {
+      "all": "All",
+      "completed": "Completed",
+      "uncompleted": "Uncompleted"
+    }
   }
 }
