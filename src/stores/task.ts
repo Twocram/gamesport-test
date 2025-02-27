@@ -29,7 +29,7 @@ export const useTaskStore = defineStore('task', () => {
 
     if (success && newTask) {
       if (tasks.value.length === 0 || tasks.value.length % 10 !== 0) {
-        setTasks([...tasks.value, newTask])
+        tasks.value.push(newTask)
       }
       useToast('success', t('task.toast.add.success'))
     }
